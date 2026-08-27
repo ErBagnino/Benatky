@@ -14,7 +14,7 @@ window.I18N = {
 
     heroKicker: "Vitejte v Benátkách",
     heroTitle: "Vydejte se po stopách Benátského pokladu",
-    heroSubtitle: "Pět tajemných tras uličkami, mosty a náměstími nejkrásnějšího města na vodě. Vyberte si trasu, zadejte heslo od organizátora a vyplujte na cestu plnou hádanek, historek a skrytých zákoutí Benátek.",
+    heroSubtitle: "Osm tajemných tras uličkami, mosty a náměstími nejkrásnějšího města na vodě. Vyberte si trasu, zadejte heslo od organizátora a vyplujte na cestu plnou hádanek, historek a skrytých zákoutí Benátek.",
     heroScroll: "Vyberte trasu",
 
     routeCardWord: "Trasa",
@@ -79,7 +79,7 @@ window.I18N = {
 
     heroKicker: "Benvenuti a Venezia",
     heroTitle: "Seguite le tracce del Tesoro di Venezia",
-    heroSubtitle: "Cinque percorsi misteriosi tra calli, ponti e campi della città più bella sull'acqua. Scegliete un percorso, inserite la password fornita dall'organizzatore e salpate per un'avventura fatta di indovinelli, storie e angoli nascosti di Venezia.",
+    heroSubtitle: "Otto percorsi misteriosi tra calli, ponti e campi della città più bella sull'acqua. Scegliete un percorso, inserite la password fornita dall'organizzatore e salpate per un'avventura fatta di indovinelli, storie e angoli nascosti di Venezia.",
     heroScroll: "Scegli un percorso",
 
     routeCardWord: "Percorso",
@@ -144,7 +144,7 @@ window.I18N = {
 
     heroKicker: "Welcome to Venice",
     heroTitle: "Follow the trail of the Venice Treasure",
-    heroSubtitle: "Five mysterious routes through the alleys, bridges and squares of the most beautiful city on water. Pick a route, enter the password from your game organizer, and set sail on a journey full of riddles, stories and Venice's hidden corners.",
+    heroSubtitle: "Eight mysterious routes through the alleys, bridges and squares of the most beautiful city on water. Pick a route, enter the password from your game organizer, and set sail on a journey full of riddles, stories and Venice's hidden corners.",
     heroScroll: "Choose a route",
 
     routeCardWord: "Route",

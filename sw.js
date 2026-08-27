@@ -1,6 +1,6 @@
 // Service worker for offline play. Bump CACHE_VERSION on every deploy that
 // changes any cached file, so returning players pick up the new version.
-const CACHE_VERSION = "v2";
+const CACHE_VERSION = "v3";
 const CACHE_NAME = "benatky-" + CACHE_VERSION;
 
 const PRECACHE_URLS = [

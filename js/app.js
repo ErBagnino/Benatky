@@ -97,8 +97,8 @@
       piece.style.background = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
       if (isCircle) piece.style.borderRadius = "50%";
       piece.style.setProperty("--drift", (Math.random() * 160 - 80) + "px");
-      var dur = 2.4 + Math.random() * 2.2;
-      var delay = Math.random() * 0.5;
+      var dur = 1.3 + Math.random() * 1.1;
+      var delay = Math.random() * 0.25;
       piece.style.animationDuration = dur + "s";
       piece.style.animationDelay = delay + "s";
       frag.appendChild(piece);
@@ -129,6 +129,7 @@
 
     renderRoutePills();
     renderRouteCards();
+    updatePillFades();
 
     if (currentView === "quiz" && state.currentRoute) {
       updateQuizRouteTag(state.currentRoute);
@@ -173,6 +174,25 @@
       mobile.appendChild(buildPill(cfg));
     });
   }
+
+  // ---------- pill strip edge fades ----------
+  // Shows a soft fade on whichever edge of a horizontally-scrollable pill
+  // strip still has more content to scroll to, instead of an abrupt cut.
+  function updateFadeFor(scrollEl) {
+    var viewport = scrollEl.closest(".pill-scroll-viewport");
+    if (!viewport) return;
+    var maxScroll = scrollEl.scrollWidth - scrollEl.clientWidth;
+    viewport.classList.toggle("at-start", scrollEl.scrollLeft <= 2);
+    viewport.classList.toggle("at-end", maxScroll <= 2 || scrollEl.scrollLeft >= maxScroll - 2);
+  }
+  function updatePillFades() {
+    updateFadeFor(el("routePills"));
+    updateFadeFor(el("mobileRouteStrip"));
+  }
+  ["routePills", "mobileRouteStrip"].forEach(function (id) {
+    el(id).addEventListener("scroll", function () { updateFadeFor(el(id)); }, { passive: true });
+  });
+  window.addEventListener("resize", updatePillFades);
 
   // ---------- route cards ----------
   function renderRouteCards() {
@@ -333,6 +353,9 @@
     el("qInput").value = "";
     el("qInput").classList.remove("wrong", "correct");
     renderQuestion();
+    // each new question starts at the top of the card, regardless of how far
+    // the player had scrolled while reading the previous one's hints/funfact
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function renderQuestion() {
@@ -493,6 +516,7 @@
       spawnConfetti(110);
       showToast(t("completionTitle"));
     }
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   el("completeBackBtn").addEventListener("click", function () {
