@@ -1,0 +1,5 @@
+node_modules/
+package-lock.json
+_test_*.js
+*.translated.json
+.DS_Store

@@ -1,0 +1,15 @@
+{
+  "name": "Benátský poklad — Venezia Treasure Hunt",
+  "short_name": "Benátky",
+  "description": "Interaktivní kvízová hra po Benátkách / Caccia al tesoro interattiva a Venezia / Interactive Venice treasure hunt",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0a2f4e",
+  "theme_color": "#0a2f4e",
+  "icons": [
+    { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

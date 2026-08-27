@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Benátský poklad — kvízová hra</title>
+<meta name="description" content="Interaktivní kvízová hra po Benátkách — vyberte trasu, zadejte heslo a vydejte se na dobrodružství uličkami Serenissimy.">
+<meta name="theme-color" content="#0a2f4e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Benátky">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icons/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Quicksand:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- decorative fixed background -->
+<div class="bg-scene" aria-hidden="true">
+  <div class="sun"></div>
+  <div class="skyline">
+    <svg viewBox="0 0 1600 220" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" fill="#0a2f4e">
+      <rect x="0" y="170" width="70" height="50"/>
+      <rect x="80" y="140" width="26" height="80"/>
+      <polygon points="93,105 80,140 106,140"/>
+      <circle cx="190" cy="150" r="42"/>
+      <rect x="148" y="150" width="84" height="70"/>
+      <rect x="250" y="165" width="20" height="55"/>
+      <rect x="290" y="120" width="24" height="100"/>
+      <polygon points="302,90 290,120 314,120"/>
+      <rect x="330" y="155" width="60" height="65"/>
+      <rect x="410" y="175" width="40" height="45"/>
+      <circle cx="500" cy="160" r="30"/>
+      <rect x="470" y="160" width="60" height="60"/>
+      <rect x="560" y="145" width="22" height="75"/>
+      <polygon points="571,115 560,145 582,145"/>
+      <rect x="610" y="170" width="70" height="50"/>
+      <circle cx="740" cy="155" r="36"/>
+      <rect x="705" y="155" width="70" height="65"/>
+      <rect x="800" y="135" width="26" height="85"/>
+      <polygon points="813,100 800,135 826,135"/>
+      <rect x="840" y="165" width="55" height="55"/>
+      <rect x="910" y="150" width="20" height="70"/>
+      <circle cx="1000" cy="158" r="34"/>
+      <rect x="966" y="158" width="68" height="62"/>
+      <rect x="1050" y="175" width="45" height="45"/>
+      <rect x="1110" y="130" width="24" height="90"/>
+      <polygon points="1122,98 1110,130 1134,130"/>
+      <rect x="1150" y="160" width="70" height="60"/>
+      <circle cx="1260" cy="150" r="40"/>
+      <rect x="1220" y="150" width="80" height="70"/>
+      <rect x="1320" y="170" width="40" height="50"/>
+      <rect x="1370" y="140" width="24" height="80"/>
+      <polygon points="1382,108 1370,140 1394,140"/>
+      <rect x="1410" y="165" width="60" height="55"/>
+      <rect x="1490" y="150" width="20" height="70"/>
+      <rect x="1520" y="175" width="80" height="45"/>
+    </svg>
+  </div>
+  <div class="water">
+    <div class="wave"></div>
+    <div class="wave wave2"></div>
+    <div class="wave wave3"></div>
+  </div>
+</div>
+
+<div id="confetti-layer" aria-hidden="true"></div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<!-- topbar -->
+<header class="topbar">
+  <button class="brand" id="brandHome" type="button" aria-label="Domů">
+    <span class="brand-badge">🚣</span>
+    <span class="brand-text"><span data-i18n="siteTitle">Benátský poklad</span><small data-i18n="siteTagline">Kvízová hra ulicemi Benátek</small></span>
+  </button>
+  <div class="topbar-spacer"></div>
+  <nav class="route-pills" id="routePills" aria-label="Trasy"></nav>
+  <div class="lang-switch" role="group" aria-label="Jazyk / Lingua / Language">
+    <button type="button" data-lang="cz">CZ</button>
+    <button type="button" data-lang="it">IT</button>
+    <button type="button" data-lang="en">EN</button>
+  </div>
+</header>
+
+<div class="mobile-route-strip" id="mobileRouteStrip" aria-hidden="true"></div>
+
+<main>
+
+  <!-- ===================== HOME VIEW ===================== -->
+  <section class="view" id="view-home">
+    <div class="hero">
+      <div class="container">
+        <span class="hero-kicker" data-i18n="heroKicker">Vitejte v Benátkách</span>
+        <h1 data-i18n="heroTitle">Vydejte se po stopách Benátského pokladu</h1>
+        <p class="hero-subtitle" data-i18n="heroSubtitle">Pět tajemných tras…</p>
+      </div>
+
+      <div class="gondola-scene" aria-hidden="true">
+        <svg class="mask-decor left" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#8c1c2b" stroke-width="2.5">
+          <path d="M50 4C24 4 8 22 8 46c0 10 4 18 4 28 0 14 10 26 22 26 8 0 10-8 16-8s8 8 16 8c12 0 22-12 22-26 0-10 4-18 4-28C92 22 76 4 50 4Z"/>
+          <path d="M20 44c4-6 12-8 18-3" stroke-linecap="round"/>
+          <path d="M80 44c-4-6-12-8-18-3" stroke-linecap="round"/>
+          <path d="M50 46c-3 9-3 17 0 24" stroke-linecap="round"/>
+          <path d="M14 30c8-5 16-3 22 3" stroke-linecap="round" stroke-width="1.5" opacity=".7"/>
+          <path d="M86 30c-8-5-16-3-22 3" stroke-linecap="round" stroke-width="1.5" opacity=".7"/>
+        </svg>
+        <svg class="mask-decor right" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#1c5d8c" stroke-width="2.5">
+          <path d="M50 4C24 4 8 22 8 46c0 10 4 18 4 28 0 14 10 26 22 26 8 0 10-8 16-8s8 8 16 8c12 0 22-12 22-26 0-10 4-18 4-28C92 22 76 4 50 4Z"/>
+          <path d="M20 44c4-6 12-8 18-3" stroke-linecap="round"/>
+          <path d="M80 44c-4-6-12-8-18-3" stroke-linecap="round"/>
+          <path d="M50 46c-3 9-3 17 0 24" stroke-linecap="round"/>
+          <path d="M14 30c8-5 16-3 22 3" stroke-linecap="round" stroke-width="1.5" opacity=".7"/>
+          <path d="M86 30c-8-5-16-3-22 3" stroke-linecap="round" stroke-width="1.5" opacity=".7"/>
+        </svg>
+
+        <span class="bird">🕊️</span>
+        <span class="bird b2">🕊️</span>
+
+        <div class="canal">
+          <div class="ripple"></div>
+          <div class="ripple r2"></div>
+          <div class="ripple r3"></div>
+        </div>
+
+        <div class="gondola-rig">
+          <div class="bob">
+            <svg viewBox="0 0 220 100" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8,58 C8,42 34,30 60,27 C100,23 150,24 182,33 C200,39 210,47 210,56 C210,66 192,74 158,76 L36,76 C16,75 8,68 8,58 Z" fill="#17130f" stroke="#d4af37" stroke-width="2"/>
+              <path d="M18,58 C18,45 42,35 65,32 C104,28 148,29 178,37" fill="none" stroke="#d4af37" stroke-width="2" stroke-linecap="round" opacity="0.9"/>
+              <rect x="70" y="42" width="55" height="14" rx="5" fill="#8c1c2b" stroke="#d4af37" stroke-width="1.2"/>
+              <g fill="none" stroke="#d4af37" stroke-width="3" stroke-linecap="round">
+                <path d="M182,35 C182,10 176,0 182,-8 C188,-14 190,-18 186,-22"/>
+                <line x1="171" y1="-1" x2="193" y2="-1"/>
+                <line x1="173" y1="9" x2="191" y2="9"/>
+                <line x1="175" y1="19" x2="189" y2="19"/>
+              </g>
+              <g>
+                <ellipse cx="46" cy="19" rx="7" ry="7.5" fill="#e8b98d"/>
+                <path d="M38,50 C36,36 40,25 46,23 C53,21 58,33 57,50 Z" fill="#f6ede0"/>
+                <path d="M39,32 C42,34 50,34 55,31" fill="none" stroke="#b23a4e" stroke-width="3"/>
+                <rect x="35" y="46" width="22" height="8" rx="3" fill="#2b2013"/>
+              </g>
+              <g class="oar">
+                <line x1="46" y1="26" x2="10" y2="90" stroke="#7a5230" stroke-width="3.4" stroke-linecap="round"/>
+                <rect x="2" y="84" width="14" height="5" rx="2" fill="#7a5230" transform="rotate(-18 9 86)"/>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <p class="hero-scroll-hint" style="text-align:center;font-weight:800;color:var(--lagoon);font-size:13px;letter-spacing:.06em;text-transform:uppercase;margin-top:6px;" data-i18n="heroScroll">Vyberte trasu</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="route-grid" id="routeGrid"></div>
+    </div>
+  </section>
+
+  <!-- ===================== QUIZ VIEW ===================== -->
+  <section class="view" id="view-quiz">
+    <div class="container quiz-shell">
+      <button class="exit-link" id="exitLink" type="button">← <span data-i18n="introBackBtn">Zpět na výběr trasy</span></button>
+
+      <div class="quiz-topbar">
+        <span class="quiz-route-tag" id="quizRouteTag"><span class="dot"></span><span id="quizRouteTagText"></span></span>
+        <div class="progress-wrap" id="progressWrap" hidden>
+          <div class="progress-label" id="progressLabel"></div>
+          <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        </div>
+      </div>
+
+      <!-- intro sub-view -->
+      <div id="quizIntro" class="paper-card">
+        <h2 data-i18n="introHeading">Vitejte v Benátkách!!!!</h2>
+        <p data-i18n="introP1"></p>
+        <p data-i18n="introP2"></p>
+        <div class="intro-photos" id="introPhotos"></div>
+        <button class="btn btn-primary btn-block" id="startQuizBtn" data-i18n="introStartBtn">Vydejte se na cestu</button>
+      </div>
+
+      <!-- question sub-view -->
+      <div id="quizQuestion" class="paper-card" hidden>
+        <h2 class="quiz-title" id="qTitle"></h2>
+
+        <div class="location-block" id="qLocationBlock">
+          <div class="lbl">🧭 <span data-i18n="quizLocationLabel">Kam dál</span></div>
+          <div id="qLocation"></div>
+        </div>
+
+        <div class="question-text" id="qQuestion"></div>
+
+        <div class="answer-row">
+          <input type="text" id="qInput" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" data-i18n-placeholder="quizInputPlaceholder">
+          <button class="btn btn-primary" id="qCheckBtn" data-i18n="quizCheckBtn">Zkontrolovat</button>
+        </div>
+        <div class="input-hint" data-i18n="quizInputHint">Piš prosím bez háčků a čárek</div>
+
+        <div class="hint-box" id="qHintBox" hidden>
+          <div class="lbl">💡 <span data-i18n="quizHintLabel">Nápověda</span></div>
+          <div id="qHintContent"></div>
+        </div>
+
+        <div class="funfact-box" id="qFunFactBox" hidden>
+          <div class="lbl">📜 <span data-i18n="quizFunFactLabel">Věděli jste, že…?</span></div>
+          <div id="qFunFactContent"></div>
+        </div>
+
+        <div class="quiz-actions">
+          <div class="left-actions">
+            <button class="btn btn-outline" id="qPrevBtn" data-i18n="quizPrevBtn">Předchozí</button>
+          </div>
+          <div class="right-actions">
+            <button class="btn btn-gold" id="qNextBtn" data-i18n="quizNextBtn" hidden>Další otázka</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- completion sub-view -->
+      <div id="quizComplete" class="paper-card completion-card" hidden>
+        <span class="trophy">🏆</span>
+        <h2 data-i18n="completionTitle">Gratulujeme!</h2>
+        <p data-i18n="completionBody"></p>
+        <div class="completion-actions">
+          <button class="btn btn-outline" id="completeBackBtn" data-i18n="completionBackBtn">Zpět na výběr tras</button>
+          <button class="btn btn-primary" id="completeAnotherBtn" data-i18n="completionPlayAnother">Vyzkoušet jinou trasu</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="lion">🦁</div>
+  <div><span data-i18n="footerCredit">Vytvořil Adam Gabriele Javurek</span> — <span data-i18n="footerContact">Kontakt</span>: <a href="mailto:adamjavurek1@gmail.com">adamjavurek1@gmail.com</a></div>
+  <div class="rights" data-i18n="footerRights">Fanouškovská hra inspirovaná Benátkami — vytvořeno s láskou ke Serenissimě.</div>
+</footer>
+
+<!-- password modal -->
+<div class="modal-backdrop" id="pwModal">
+  <div class="modal-card" id="pwModalCard">
+    <button class="modal-close" id="pwModalClose" aria-label="Close">✕</button>
+    <div class="modal-seal">🔒</div>
+    <h2 data-i18n="modalTitle">Zadejte heslo</h2>
+    <div class="modal-route-name" id="pwModalRouteName"></div>
+    <p class="modal-hint" data-i18n="modalHint">Heslo k této trase vám dá organizátor hry.</p>
+    <form id="pwForm">
+      <div class="pw-field">
+        <input type="text" id="pwInput" data-i18n-placeholder="modalPlaceholder" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+      </div>
+      <div class="modal-error-msg" id="pwError"></div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-outline" id="pwCancelBtn" data-i18n="modalCancel">Zrušit</button>
+        <button type="submit" class="btn btn-primary" id="pwSubmitBtn" data-i18n="modalSubmit">Odemknout</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="js/i18n.js"></script>
+<script src="js/routes-config.js"></script>
+<script src="data/trasa1.js"></script>
+<script src="data/trasa2.js"></script>
+<script src="data/trasa3.js"></script>
+<script src="data/trasa4.js"></script>
+<script src="data/trasa5.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
