@@ -50,7 +50,7 @@ body{
   min-height:100vh;
   font-family: var(--font-body);
   color: var(--ink);
-  background: linear-gradient(180deg, #cfe9f6 0%, #eaf5fa 22%, var(--parchment) 55%, var(--parchment-dark) 100%);
+  background: var(--parchment);
   overflow-x: hidden;
   -webkit-tap-highlight-color: transparent;
 }
@@ -72,7 +72,10 @@ img{ max-width:100%; display:block; }
 }
 
 /* =========================================================
-   Decorative background: sky + distant skyline + water
+   Decorative background: a soft ambient sun glow only.
+   (No fixed skyline/water here on purpose — those live inside
+   .gondola-scene, in normal flow, so nothing floating ever
+   collides with content further down the page.)
    ========================================================= */
 .bg-scene{
   position: fixed; inset:0; z-index:-1; pointer-events:none; overflow:hidden;
@@ -82,30 +85,6 @@ img{ max-width:100%; display:block; }
   background: radial-gradient(circle at 35% 35%, #fff6d8, var(--gold-light) 55%, transparent 75%);
   filter: blur(1px);
   opacity:.8;
-}
-.bg-scene .skyline{
-  position:absolute; left:0; right:0; bottom:18vh; height:22vh;
-  opacity:.35;
-}
-.bg-scene .skyline svg{ width:100%; height:100%; }
-
-.bg-scene .water{
-  position:absolute; left:0; right:0; bottom:0; height:20vh;
-  background: linear-gradient(180deg, var(--lagoon-light), var(--lagoon) 60%, var(--navy) 100%);
-}
-.bg-scene .wave{
-  position:absolute; left:0; width:200%; height:60px; bottom:0;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 40'%3E%3Cpath fill='%23ffffff' fill-opacity='0.35' d='M0 20 Q 75 0 150 20 T 300 20 T 450 20 T 600 20 V40 H0 Z'/%3E%3C/svg%3E") repeat-x;
-  background-size: 600px 60px;
-  animation: waveScroll 14s linear infinite;
-}
-.bg-scene .wave.wave2{
-  bottom:6px; opacity:.5; animation-duration: 9s; animation-direction: reverse;
-  background-size: 480px 50px;
-}
-.bg-scene .wave.wave3{
-  bottom:-4px; opacity:.25; animation-duration: 20s;
-  background-size: 720px 70px;
 }
 @keyframes waveScroll{
   from{ transform: translateX(0); }
@@ -129,6 +108,7 @@ img{ max-width:100%; display:block; }
   display:flex; align-items:center; gap:10px;
   cursor:pointer; border:none; background:none; padding:0;
   color: var(--parchment);
+  min-width:0; flex-shrink:1;
 }
 .brand .brand-badge{
   width:38px; height:38px; border-radius:50%;
@@ -142,14 +122,20 @@ img{ max-width:100%; display:block; }
   font-size: clamp(14px, 2.4vw, 19px);
   letter-spacing:.03em;
   white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  min-width:0;
+  max-width: 100%;
+  display:block;
 }
 .brand .brand-text small{
   display:block; font-family: var(--font-body); font-weight:600;
   font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color: var(--gold-light);
   opacity:.85;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 }
 
-.topbar-spacer{ flex:1; }
+.topbar-spacer{ flex:1 1 auto; min-width:8px; }
 
 .route-pills{
   display:flex; gap:6px; overflow-x:auto; scrollbar-width:none; -ms-overflow-style:none;
@@ -209,6 +195,10 @@ img{ max-width:100%; display:block; }
   padding: clamp(28px, 6vw, 60px) 0 10px;
   text-align:center;
   overflow:visible;
+  /* self-contained sky-to-shore gradient: always reaches parchment exactly
+     at the hero's own bottom edge, so it blends into the page below no
+     matter how long the rest of the page is (independent of route count) */
+  background: linear-gradient(180deg, #cfe9f6 0%, #eaf5fa 30%, var(--parchment) 92%, var(--parchment) 100%);
 }
 .hero-kicker{
   display:inline-flex; align-items:center; gap:8px;
@@ -250,6 +240,18 @@ img{ max-width:100%; display:block; }
 }
 .gondola-scene .canal .ripple.r2{ top:16px; opacity:.5; animation-duration:9s; animation-direction:reverse; }
 .gondola-scene .canal .ripple.r3{ top:32px; opacity:.3; animation-duration:5s; }
+
+.gondola-scene .scene-skyline{
+  position:absolute; left:0; right:0; bottom:38%; height:44%;
+  opacity:.28; pointer-events:none;
+}
+.gondola-scene .scene-skyline svg{ width:100%; height:100%; display:block; }
+
+.gondola-scene .scene-shore{
+  position:absolute; left:-2%; bottom:-1px; width:104%; height:32px;
+  fill: var(--parchment);
+  filter: drop-shadow(0 -2px 4px rgba(10,47,78,.08));
+}
 
 .gondola-scene{ perspective: 700px; }
 .gondola-rig{
@@ -301,6 +303,22 @@ img{ max-width:100%; display:block; }
 .mask-decor.left{ left: clamp(-10px, 1vw, 30px); top: 10%; transform: rotate(-14deg); }
 .mask-decor.right{ right: clamp(-10px, 1vw, 30px); top: 4%; transform: rotate(16deg) scaleX(-1); }
 
+.section-heading{
+  display:flex; align-items:center; justify-content:center; gap:16px;
+  margin: 8px 0 6px;
+}
+.section-heading-line{
+  height:2px; flex:1 1 60px; max-width:120px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity:.8;
+}
+.hero-scroll-hint{
+  margin:0; white-space:nowrap;
+  font-family: var(--font-heading); font-style:italic; font-weight:700;
+  color: var(--red); font-size: clamp(17px, 3vw, 22px);
+  letter-spacing:.02em;
+}
+
 /* =========================================================
    Route cards
    ========================================================= */
@@ -308,6 +326,19 @@ img{ max-width:100%; display:block; }
   display:grid; gap: 20px;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   padding: 28px 0 60px;
+}
+.route-card{ animation: cardRise .5s cubic-bezier(.2,.8,.3,1) backwards; }
+.route-card:nth-child(1){ animation-delay: .02s; }
+.route-card:nth-child(2){ animation-delay: .07s; }
+.route-card:nth-child(3){ animation-delay: .12s; }
+.route-card:nth-child(4){ animation-delay: .17s; }
+.route-card:nth-child(5){ animation-delay: .22s; }
+.route-card:nth-child(6){ animation-delay: .27s; }
+.route-card:nth-child(7){ animation-delay: .32s; }
+.route-card:nth-child(8){ animation-delay: .37s; }
+@keyframes cardRise{
+  from{ opacity:0; transform: translateY(22px) scale(.97); }
+  to{ opacity:1; transform: translateY(0) scale(1); }
 }
 .route-card{
   position:relative;
@@ -595,8 +626,13 @@ img{ max-width:100%; display:block; }
    Footer
    ========================================================= */
 footer.site-footer{
-  text-align:center; padding: 30px 20px 40px; color: var(--ink-soft); font-size:12.5px;
-  border-top: 1px solid rgba(43,32,19,.12);
+  text-align:center; padding: 34px 20px 40px; color: var(--ink-soft); font-size:12.5px;
+  background: var(--parchment-dark);
+  position:relative;
+}
+footer.site-footer::before{
+  content:""; position:absolute; left:0; right:0; top:0; height:1px;
+  background: linear-gradient(90deg, transparent, rgba(212,175,55,.5), transparent);
 }
 footer.site-footer .lion{ font-size:22px; margin-bottom:8px; opacity:.8; }
 footer.site-footer a{ color: var(--lagoon); font-weight:700; text-decoration:none; }
@@ -624,6 +660,7 @@ footer.site-footer .offline-note{ margin-top:10px; font-weight:700; opacity:.65;
   .brand .brand-text{ font-size:13px; }
   .brand .brand-text small{ font-size:9px; }
   .lang-switch button{ padding:6px 8px; font-size:11px; }
+  .lang-switch{ gap:2px; }
   .route-grid{ grid-template-columns: 1fr; }
   .modal-card{ padding: 24px 18px 20px; }
   .quiz-actions{ flex-direction:column; align-items:stretch; }
@@ -631,6 +668,13 @@ footer.site-footer .offline-note{ margin-top:10px; font-weight:700; opacity:.65;
   .quiz-actions .btn{ flex:1; }
   .intro-photos{ flex-direction:column; }
   .intro-photos img{ aspect-ratio: 16/10; }
+}
+
+@media (max-width: 360px){
+  .brand .brand-text small{ display:none; }
+  .topbar{ gap:6px; padding: 0 10px; }
+  .brand .brand-badge{ width:32px; height:32px; font-size:15px; }
+  .lang-switch button{ padding:5px 6px; font-size:10.5px; }
 }
 
 @media (prefers-reduced-motion: reduce){

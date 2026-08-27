@@ -20,53 +20,9 @@
 </head>
 <body>
 
-<!-- decorative fixed background -->
+<!-- decorative fixed background: soft sky glow only, so it never collides with in-flow sections -->
 <div class="bg-scene" aria-hidden="true">
   <div class="sun"></div>
-  <div class="skyline">
-    <svg viewBox="0 0 1600 220" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" fill="#0a2f4e">
-      <rect x="0" y="170" width="70" height="50"/>
-      <rect x="80" y="140" width="26" height="80"/>
-      <polygon points="93,105 80,140 106,140"/>
-      <circle cx="190" cy="150" r="42"/>
-      <rect x="148" y="150" width="84" height="70"/>
-      <rect x="250" y="165" width="20" height="55"/>
-      <rect x="290" y="120" width="24" height="100"/>
-      <polygon points="302,90 290,120 314,120"/>
-      <rect x="330" y="155" width="60" height="65"/>
-      <rect x="410" y="175" width="40" height="45"/>
-      <circle cx="500" cy="160" r="30"/>
-      <rect x="470" y="160" width="60" height="60"/>
-      <rect x="560" y="145" width="22" height="75"/>
-      <polygon points="571,115 560,145 582,145"/>
-      <rect x="610" y="170" width="70" height="50"/>
-      <circle cx="740" cy="155" r="36"/>
-      <rect x="705" y="155" width="70" height="65"/>
-      <rect x="800" y="135" width="26" height="85"/>
-      <polygon points="813,100 800,135 826,135"/>
-      <rect x="840" y="165" width="55" height="55"/>
-      <rect x="910" y="150" width="20" height="70"/>
-      <circle cx="1000" cy="158" r="34"/>
-      <rect x="966" y="158" width="68" height="62"/>
-      <rect x="1050" y="175" width="45" height="45"/>
-      <rect x="1110" y="130" width="24" height="90"/>
-      <polygon points="1122,98 1110,130 1134,130"/>
-      <rect x="1150" y="160" width="70" height="60"/>
-      <circle cx="1260" cy="150" r="40"/>
-      <rect x="1220" y="150" width="80" height="70"/>
-      <rect x="1320" y="170" width="40" height="50"/>
-      <rect x="1370" y="140" width="24" height="80"/>
-      <polygon points="1382,108 1370,140 1394,140"/>
-      <rect x="1410" y="165" width="60" height="55"/>
-      <rect x="1490" y="150" width="20" height="70"/>
-      <rect x="1520" y="175" width="80" height="45"/>
-    </svg>
-  </div>
-  <div class="water">
-    <div class="wave"></div>
-    <div class="wave wave2"></div>
-    <div class="wave wave3"></div>
-  </div>
 </div>
 
 <div id="confetti-layer" aria-hidden="true"></div>
@@ -101,6 +57,45 @@
       </div>
 
       <div class="gondola-scene" aria-hidden="true">
+        <div class="scene-skyline">
+          <svg viewBox="0 0 1600 220" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" fill="#0a2f4e">
+            <rect x="0" y="170" width="70" height="50"/>
+            <rect x="80" y="140" width="26" height="80"/>
+            <polygon points="93,105 80,140 106,140"/>
+            <circle cx="190" cy="150" r="42"/>
+            <rect x="148" y="150" width="84" height="70"/>
+            <rect x="250" y="165" width="20" height="55"/>
+            <rect x="290" y="120" width="24" height="100"/>
+            <polygon points="302,90 290,120 314,120"/>
+            <rect x="330" y="155" width="60" height="65"/>
+            <rect x="410" y="175" width="40" height="45"/>
+            <circle cx="500" cy="160" r="30"/>
+            <rect x="470" y="160" width="60" height="60"/>
+            <rect x="560" y="145" width="22" height="75"/>
+            <polygon points="571,115 560,145 582,145"/>
+            <rect x="610" y="170" width="70" height="50"/>
+            <circle cx="740" cy="155" r="36"/>
+            <rect x="705" y="155" width="70" height="65"/>
+            <rect x="800" y="135" width="26" height="85"/>
+            <polygon points="813,100 800,135 826,135"/>
+            <rect x="840" y="165" width="55" height="55"/>
+            <rect x="910" y="150" width="20" height="70"/>
+            <circle cx="1000" cy="158" r="34"/>
+            <rect x="966" y="158" width="68" height="62"/>
+            <rect x="1050" y="175" width="45" height="45"/>
+            <rect x="1110" y="130" width="24" height="90"/>
+            <polygon points="1122,98 1110,130 1134,130"/>
+            <rect x="1150" y="160" width="70" height="60"/>
+            <circle cx="1260" cy="150" r="40"/>
+            <rect x="1220" y="150" width="80" height="70"/>
+            <rect x="1320" y="170" width="40" height="50"/>
+            <rect x="1370" y="140" width="24" height="80"/>
+            <polygon points="1382,108 1370,140 1394,140"/>
+            <rect x="1410" y="165" width="60" height="55"/>
+            <rect x="1490" y="150" width="20" height="70"/>
+            <rect x="1520" y="175" width="80" height="45"/>
+          </svg>
+        </div>
         <svg class="mask-decor left" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#8c1c2b" stroke-width="2.5">
           <path d="M50 4C24 4 8 22 8 46c0 10 4 18 4 28 0 14 10 26 22 26 8 0 10-8 16-8s8 8 16 8c12 0 22-12 22-26 0-10 4-18 4-28C92 22 76 4 50 4Z"/>
           <path d="M20 44c4-6 12-8 18-3" stroke-linecap="round"/>
@@ -152,10 +147,18 @@
             </svg>
           </div>
         </div>
+
+        <svg class="scene-shore" viewBox="0 0 600 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 22 Q 50 4 100 20 T 200 20 T 300 22 T 400 18 T 500 22 T 600 18 V40 H0 Z"/>
+        </svg>
       </div>
 
       <div class="container">
-        <p class="hero-scroll-hint" style="text-align:center;font-weight:800;color:var(--lagoon);font-size:13px;letter-spacing:.06em;text-transform:uppercase;margin-top:6px;" data-i18n="heroScroll">Vyberte trasu</p>
+        <div class="section-heading">
+          <span class="section-heading-line"></span>
+          <p class="hero-scroll-hint" data-i18n="heroScroll">Vyberte trasu</p>
+          <span class="section-heading-line"></span>
+        </div>
       </div>
     </div>
 
