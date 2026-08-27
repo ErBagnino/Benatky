@@ -63,6 +63,7 @@ window.I18N = {
     footerCredit: "Vytvořil Adam Gabriele Javurek",
     footerContact: "Kontakt",
     footerRights: "Fanouškovská hra inspirovaná Benátkami — vytvořeno s láskou ke Serenissimě.",
+    footerOffline: "📶 Po prvním načtení funguje hra i bez internetu.",
 
     installHint: "Tip: přidejte si tuto hru na plochu telefonu pro rychlý přístup příště."
   },
@@ -127,6 +128,7 @@ window.I18N = {
     footerCredit: "Creato da Adam Gabriele Javurek",
     footerContact: "Contatto",
     footerRights: "Gioco amatoriale ispirato a Venezia — creato con amore per la Serenissima.",
+    footerOffline: "📶 Dopo il primo caricamento il gioco funziona anche senza internet.",
 
     installHint: "Suggerimento: aggiungi questo gioco alla schermata home del telefono per un accesso rapido."
   },
@@ -191,6 +193,7 @@ window.I18N = {
     footerCredit: "Made by Adam Gabriele Javurek",
     footerContact: "Contact",
     footerRights: "A fan-made game inspired by Venice — built with love for La Serenissima.",
+    footerOffline: "📶 After the first load, the game also works without internet.",
 
     installHint: "Tip: add this game to your phone's home screen for quick access next time."
   }

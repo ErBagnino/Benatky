@@ -602,6 +602,7 @@ footer.site-footer .lion{ font-size:22px; margin-bottom:8px; opacity:.8; }
 footer.site-footer a{ color: var(--lagoon); font-weight:700; text-decoration:none; }
 footer.site-footer a:hover{ text-decoration:underline; }
 footer.site-footer .rights{ margin-top:6px; opacity:.75; }
+footer.site-footer .offline-note{ margin-top:10px; font-weight:700; opacity:.65; }
 
 /* =========================================================
    Responsive
